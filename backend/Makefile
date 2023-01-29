@@ -1,8 +1,3 @@
-ENV_FILE=../.env
-
-include ${ENV_FILE}
-export
-
 .SILENT:
 
 ## help: print this help message

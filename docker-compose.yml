@@ -12,7 +12,7 @@ services:
 
   api:
     build:
-      context: backend
+      context: ./backend
     # volumes:
     #   - ./backend/src/migrations:/opt/venv/lib/python3.10/site-packages/migrations
     depends_on:
