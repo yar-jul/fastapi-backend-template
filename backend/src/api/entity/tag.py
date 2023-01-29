@@ -2,7 +2,6 @@ import sqlalchemy as sa
 from sqlalchemy.orm import relationship
 
 from api.entity.base_table import BaseTable
-from api.entity.book import BookTable
 
 
 class TagTable(BaseTable):
@@ -10,5 +9,5 @@ class TagTable(BaseTable):
 
     name = sa.Column(sa.Text, nullable=False, index=True, unique=True)
     books = relationship(
-        BookTable, secondary="tag_association", back_populates="tags"
+        "BookTable", secondary="tag_association", back_populates="tags"
     )  # TODO lazy

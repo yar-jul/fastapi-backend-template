@@ -13,4 +13,5 @@ RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:/root/.local/bin:$PATH"
 COPY . .
 RUN poetry install --without dev
+#RUN apicli db-upgrade
 CMD ["apicli", "run"]

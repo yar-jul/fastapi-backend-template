@@ -13,8 +13,8 @@ services:
   api:
     build:
       context: ./backend
-    # volumes:
-    #   - ./backend/src/migrations:/opt/venv/lib/python3.10/site-packages/migrations
+#    volumes:
+#     - ./backend/src/migrations:/app/src/migrations
     depends_on:
       - "db"
     links:

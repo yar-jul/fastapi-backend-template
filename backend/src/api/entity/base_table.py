@@ -1,14 +1,19 @@
 import sqlalchemy as sa
+from sqlalchemy import MetaData
 from sqlalchemy.dialects import postgresql as pg
-from sqlalchemy.orm.decl_api import DeclarativeMeta
+from sqlalchemy.ext.declarative import as_declarative
 
 
-class BaseTable(metaclass=DeclarativeMeta):
+@as_declarative()
+class BaseTable:
     __abstract__ = True
+
+    metadata: MetaData
 
     id_ = sa.Column(
         "id",
         pg.UUID(as_uuid=True),
         primary_key=True,
-        server_default=sa.text("uuid_generate_v4()"),
+        server_default=sa.text("gen_random_uuid()"),
+        index=True,
     )
