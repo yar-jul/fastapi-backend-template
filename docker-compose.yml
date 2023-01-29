@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
 
   db:
@@ -28,6 +28,7 @@ services:
       - SQLALCHEMY_LOG_ALL=${SQLALCHEMY_LOG_ALL}
     ports:
       - ${API_OUTER_PORT}:${API_PORT}
+    entrypoint: [ "/app/scripts/wait-for-it.sh", "db:5432", "--", "/app/scripts/entrypoint.sh", "/app/scripts/run.sh" ]
 
   pgadmin:
     container_name: pgadmin
