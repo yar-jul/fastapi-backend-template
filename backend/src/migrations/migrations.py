@@ -11,7 +11,6 @@ config.set_main_option("script_location", migrations_path.as_posix())
 
 
 def upgrade():
-    print(config_filepath)
     command.upgrade(config, revision="head")
 
 
