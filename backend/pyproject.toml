@@ -31,7 +31,7 @@ black = "^22.12.0"
 testpaths = "tests/"
 
 [tool.poetry.scripts]
-logtocw = "cli:cli"
+apicli = "cli:cli"
 
 [build-system]
 requires = ["poetry-core"]
