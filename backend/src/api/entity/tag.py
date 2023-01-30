@@ -10,4 +10,4 @@ class TagTable(BaseTable):
     name = sa.Column(sa.Text, nullable=False, index=True, unique=True)
     books = relationship(
         "BookTable", secondary="tag_association", back_populates="tags"
-    )  # TODO lazy
+    )

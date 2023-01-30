@@ -14,7 +14,7 @@ class BookTable(BaseTable):
     category_id = sa.Column(pg.UUID(as_uuid=True), sa.ForeignKey("category.id"))
     tags = relationship(
         "TagTable", secondary="tag_association", back_populates="books"
-    )  # TODO lazy
+    )
 
 
 tag_association = sa.Table(
