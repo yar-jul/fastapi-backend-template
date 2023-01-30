@@ -15,7 +15,15 @@ labeled_cols = (
     AuthorTable.name.label("name"),
 )
 
-select = sa.select(*labeled_cols)
+
+select = (
+    sa.select(
+        *labeled_cols,
+        (sa.func.array_agg(BookTable.id_.cast(sa.String))).label("books"),
+    )
+    .join(BookTable, isouter=True)
+    .group_by(AuthorTable.id_)
+)
 
 
 @router.get("/id/{author_id}", response_model=AuthorRead)
@@ -34,30 +42,13 @@ async def get_author_by_id(author_id: UUID, session=Depends(db_session)):
 
 @router.get("/name/{name}", response_model=list[AuthorRead])
 async def get_author_by_name(name: str, session=Depends(db_session)):
-    select_ = (
-        sa.select(
-            *labeled_cols,
-            (sa.func.array_agg(BookTable.id_.cast(sa.String))).label("books"),
-        )
-        .join(BookTable, isouter=True)
-        .where(AuthorTable.name == name)
-        .group_by(AuthorTable.id_)
-    )
-    entity = (await session.execute(select_)).all()
+    entity = (await session.execute(select.where(AuthorTable.name == name))).all()
     return entity
 
 
 @router.get("/", response_model=list[AuthorRead])
 async def list_authors(session=Depends(db_session)):
-    select_ = (
-        sa.select(
-            *labeled_cols,
-            (sa.func.array_agg(BookTable.id_.cast(sa.String))).label("books"),
-        )
-        .join(BookTable, isouter=True)
-        .group_by(AuthorTable.id_)
-    )
-    entity = (await session.execute(select_)).all()
+    entity = (await session.execute(select)).all()
     return entity
 
 

@@ -8,6 +8,4 @@ class TagTable(BaseTable):
     __tablename__ = "tag"
 
     name = sa.Column(sa.Text, nullable=False, index=True, unique=True)
-    books = relationship(
-        "BookTable", secondary="tag_association", back_populates="tags"
-    )
+    books = relationship("BookTable", secondary="tag_association", back_populates="tags")
