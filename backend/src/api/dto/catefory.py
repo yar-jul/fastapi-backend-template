@@ -3,11 +3,11 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 
-class Category(BaseModel):
+class CategoryCreate(BaseModel):
     name: str
 
 
-class RetrieveCategory(Category):
+class CategoryRead(CategoryCreate):
     class Config:
         orm_mode = True
 

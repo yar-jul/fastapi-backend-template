@@ -3,14 +3,14 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 
-class Book(BaseModel):
+class BookCreate(BaseModel):
     name: str
     category_id: UUID
     author_id: UUID
     tags: list[str]
 
 
-class RetrieveBook(Book):
+class BookRead(BookCreate):
     class Config:
         orm_mode = True
 

@@ -3,11 +3,11 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 
-class Tag(BaseModel):
+class TagCreate(BaseModel):
     name: str
 
 
-class RetrieveTag(Tag):
+class TagRead(TagCreate):
     class Config:
         orm_mode = True
 
