@@ -7,5 +7,5 @@ from api.entity.base_table import BaseTable
 class AuthorTable(BaseTable):
     __tablename__ = "author"
 
-    name = sa.Column(sa.Text, nullable=False, index=True, unique=True)
-    books = relationship("BookTable", back_populates="author")  # TODO lazy
+    name = sa.Column(sa.Text, nullable=False, index=True)
+    books = relationship("BookTable", back_populates="author", lazy="joined")

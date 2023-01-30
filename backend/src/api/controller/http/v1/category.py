@@ -17,9 +17,9 @@ labeled_cols = (
 select = sa.select(*labeled_cols)
 
 
-@router.get("/id/{id_}", response_model=CategoryRead)
-async def get_category_by_id(id_: UUID, session=Depends(db_session)):
-    return (await session.execute(select.where(CategoryTable.id_ == id_))).one()
+@router.get("/id/{category_id}", response_model=CategoryRead)
+async def get_category_by_id(category_id: UUID, session=Depends(db_session)):
+    return (await session.execute(select.where(CategoryTable.id_ == category_id))).one()
 
 
 @router.get("/name/{name}", response_model=CategoryRead)
@@ -43,12 +43,12 @@ async def post_category(category: CategoryCreate, session=Depends(db_session)):
     )
 
 
-@router.put("/id/{id_}", response_model=CategoryRead)
-async def put_category(id_: UUID, category: CategoryCreate, session=Depends(db_session)):
+@router.put("/id/{category_id}", response_model=CategoryRead)
+async def put_category(category_id: UUID, category: CategoryCreate, session=Depends(db_session)):
     query = (
         sa.update(CategoryTable)
         .returning(*labeled_cols)
-        .where(CategoryTable.id_ == id_)
+        .where(CategoryTable.id_ == category_id)
         .values(
             name=category.name,
         )
@@ -56,7 +56,7 @@ async def put_category(id_: UUID, category: CategoryCreate, session=Depends(db_s
     return (await session.execute(query)).one()
 
 
-@router.delete("/id/{id_}", response_model=CategoryRead)
-async def delete_category(id_: UUID, session=Depends(db_session)):
-    query = sa.delete(CategoryTable).returning(*labeled_cols).where(CategoryTable.id_ == id_)
+@router.delete("/id/{category_id}", response_model=CategoryRead)
+async def delete_category(category_id: UUID, session=Depends(db_session)):
+    query = sa.delete(CategoryTable).returning(*labeled_cols).where(CategoryTable.id_ == category_id)
     return (await session.execute(query)).one()

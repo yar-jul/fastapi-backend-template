@@ -7,7 +7,7 @@ class BookCreate(BaseModel):
     name: str
     category_id: UUID
     author_id: UUID
-    tags: list[str]
+    tags: list[UUID]
 
 
 class BookRead(BookCreate):

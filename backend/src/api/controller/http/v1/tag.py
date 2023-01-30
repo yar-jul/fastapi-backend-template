@@ -17,9 +17,9 @@ labeled_cols = (
 select = sa.select(*labeled_cols)
 
 
-@router.get("/id/{id_}", response_model=TagRead)
-async def get_tag_by_id(id_: UUID, session=Depends(db_session)):
-    return (await session.execute(select.where(TagTable.id_ == id_))).one()
+@router.get("/id/{tag_id}", response_model=TagRead)
+async def get_tag_by_id(tag_id: UUID, session=Depends(db_session)):
+    return (await session.execute(select.where(TagTable.id_ == tag_id))).one()
 
 
 @router.get("/name/{name}", response_model=TagRead)
@@ -43,12 +43,12 @@ async def post_tag(tag: TagCreate, session=Depends(db_session)):
     )
 
 
-@router.put("/id/{id_}", response_model=TagRead)
-async def put_tag(id_: UUID, tag: TagCreate, session=Depends(db_session)):
+@router.put("/id/{tag_id}", response_model=TagRead)
+async def put_tag(tag_id: UUID, tag: TagCreate, session=Depends(db_session)):
     query = (
         sa.update(TagTable)
         .returning(*labeled_cols)
-        .where(TagTable.id_ == id_)
+        .where(TagTable.id_ == tag_id)
         .values(
             name=tag.name,
         )
@@ -56,7 +56,7 @@ async def put_tag(id_: UUID, tag: TagCreate, session=Depends(db_session)):
     return (await session.execute(query)).one()
 
 
-@router.delete("/id/{id_}", response_model=TagRead)
-async def delete_tag(id_: UUID, session=Depends(db_session)):
-    query = sa.delete(TagTable).returning(*labeled_cols).where(TagTable.id_ == id_)
+@router.delete("/id/{tag_id}", response_model=TagRead)
+async def delete_tag(tag_id: UUID, session=Depends(db_session)):
+    query = sa.delete(TagTable).returning(*labeled_cols).where(TagTable.id_ == tag_id)
     return (await session.execute(query)).one()

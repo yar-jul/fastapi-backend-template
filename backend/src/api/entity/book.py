@@ -8,12 +8,12 @@ from api.entity.base_table import BaseTable
 class BookTable(BaseTable):
     __tablename__ = "book"
 
-    name = sa.Column(sa.Text, nullable=False, index=True, unique=True)
+    name = sa.Column(sa.Text, nullable=False, index=True)
 
-    category_id = sa.Column(pg.UUID(as_uuid=True), sa.ForeignKey("category.id"), unique=True)
+    author_id = sa.Column(pg.UUID(as_uuid=True), sa.ForeignKey("author.id"))
+    author = relationship("AuthorTable", back_populates="books", lazy="selectin")  # TODO rm
 
-    author_id = sa.Column(pg.UUID(as_uuid=True), sa.ForeignKey("author.id"), unique=True)
-    author = relationship("AuthorTable", back_populates="books")  # TODO lazy
+    category_id = sa.Column(pg.UUID(as_uuid=True), sa.ForeignKey("category.id"))
 
     tags = relationship(
         "TagTable", secondary="tag_association", back_populates="books"
