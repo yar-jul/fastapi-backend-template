@@ -58,5 +58,7 @@ async def put_category(category_id: UUID, category: CategoryCreate, session=Depe
 
 @router.delete("/id/{category_id}", response_model=CategoryRead)
 async def delete_category(category_id: UUID, session=Depends(db_session)):
-    query = sa.delete(CategoryTable).returning(*labeled_cols).where(CategoryTable.id_ == category_id)
+    query = (
+        sa.delete(CategoryTable).returning(*labeled_cols).where(CategoryTable.id_ == category_id)
+    )
     return (await session.execute(query)).one()

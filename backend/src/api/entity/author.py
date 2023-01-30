@@ -8,4 +8,4 @@ class AuthorTable(BaseTable):
     __tablename__ = "author"
 
     name = sa.Column(sa.Text, nullable=False, index=True)
-    books = relationship("BookTable", back_populates="author", lazy="joined")
+    books = relationship("BookTable", back_populates="author", lazy="selectin")

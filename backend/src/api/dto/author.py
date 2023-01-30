@@ -8,14 +8,14 @@ class AuthorCreate(BaseModel):
     name: str
 
 
-class AuthorPostResponse(AuthorCreate):
+class AuthorWithID(AuthorCreate):
     class Config:
         orm_mode = True
 
     id_: UUID = Field(alias="id")
 
 
-class AuthorRead(AuthorPostResponse):
+class AuthorRead(AuthorWithID):
     books: Optional[list[Optional[UUID]]]
 
     @validator("books")

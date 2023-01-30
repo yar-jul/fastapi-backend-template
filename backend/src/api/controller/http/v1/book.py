@@ -4,7 +4,6 @@ import sqlalchemy as sa
 from fastapi import APIRouter, Depends
 
 from api.dto.book import BookCreate, BookRead
-from api.entity.author import AuthorTable
 from api.entity.book import BookTable
 from api.entity.tag import TagTable
 from api.misc.dependencies import db_session
@@ -40,7 +39,7 @@ async def list_books(session=Depends(db_session)):
 @router.post("/", response_model=BookRead)
 async def post_book(book: BookCreate, session=Depends(db_session)):
     tags = (
-        (await session.execute(sa.select(TagTable).where(TagTable.id_ == sa.func.any(book.tags))))
+        (await session.execute(sa.select(TagTable).where(TagTable.name == sa.func.any(book.tags))))
         .scalars()
         .all()
     )
