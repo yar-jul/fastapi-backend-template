@@ -42,14 +42,12 @@ async def get_author_by_id(author_id: UUID, session=Depends(db_session)):
 
 @router.get("/name/{name}", response_model=list[AuthorRead])
 async def get_author_by_name(name: str, session=Depends(db_session)):
-    entity = (await session.execute(select.where(AuthorTable.name == name))).all()
-    return entity
+    return (await session.execute(select.where(AuthorTable.name == name))).all()
 
 
 @router.get("/", response_model=list[AuthorRead])
 async def list_authors(session=Depends(db_session)):
-    entity = (await session.execute(select)).all()
-    return entity
+    return (await session.execute(select)).all()
 
 
 @router.post("/", response_model=AuthorWithID)
