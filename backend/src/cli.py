@@ -8,16 +8,24 @@ cli = typer.Typer()
 
 @cli.command()
 def db_upgrade():
+    """upgrade migrations"""
     migrations.upgrade()
 
 
 @cli.command()
 def db_downgrade():
+    """downgrade migrations"""
     migrations.downgrade()
 
 
 @cli.command()
 def db_make_migration(msg: str, autogenerate: bool = False):
+    """
+    make migration.
+
+    export SQLALCHEMY_DATABASE_DSN=...
+    apicli db-make-migration --autogenerate msg
+    """
     migrations.make_migration(msg, autogenerate=autogenerate)
 
 
@@ -28,6 +36,7 @@ def run(
     workers: int = typer.Option(1, envvar="API_WORKERS"),
     debug: bool = typer.Option(False, envvar="DEBUG"),
 ):
+    """run api"""
     log_level = "info"
     if debug:
         log_level = "debug"
