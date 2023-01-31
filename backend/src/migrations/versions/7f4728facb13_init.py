@@ -1,15 +1,15 @@
 """init
 
-Revision ID: ba3f769e7a4c
+Revision ID: 7f4728facb13
 Revises: 
-Create Date: 2023-01-29 21:14:42.088108
+Create Date: 2023-01-31 02:51:12.644053
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "ba3f769e7a4c"
+revision = "7f4728facb13"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(op.f("ix_author_id"), "author", ["id"], unique=False)
-    op.create_index(op.f("ix_author_name"), "author", ["name"], unique=True)
+    op.create_index(op.f("ix_author_name"), "author", ["name"], unique=False)
     op.create_table(
         "category",
         sa.Column("name", sa.Text(), nullable=False),
@@ -44,8 +44,8 @@ def upgrade() -> None:
     op.create_table(
         "book",
         sa.Column("name", sa.Text(), nullable=False),
-        sa.Column("category_id", sa.UUID(), nullable=True),
         sa.Column("author_id", sa.UUID(), nullable=True),
+        sa.Column("category_id", sa.UUID(), nullable=True),
         sa.Column("id", sa.UUID(), server_default=sa.text("gen_random_uuid()"), nullable=False),
         sa.ForeignKeyConstraint(
             ["author_id"],
@@ -56,11 +56,9 @@ def upgrade() -> None:
             ["category.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("author_id"),
-        sa.UniqueConstraint("category_id"),
     )
     op.create_index(op.f("ix_book_id"), "book", ["id"], unique=False)
-    op.create_index(op.f("ix_book_name"), "book", ["name"], unique=True)
+    op.create_index(op.f("ix_book_name"), "book", ["name"], unique=False)
     op.create_table(
         "tag_association",
         sa.Column("book_id", sa.UUID(), nullable=True),
