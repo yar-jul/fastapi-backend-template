@@ -43,6 +43,7 @@ make populate-db
 <div class="termy">
 
 ```console
+$ cd fastapi-backend-template/backend
 $ apicli --help
 Usage: apicli [OPTIONS] COMMAND [ARGS]...
 
