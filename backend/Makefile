@@ -16,3 +16,8 @@ fmt:
 .PHONY: test
 test:
 	poetry run python -m pytest
+
+## populate-db: populate the database
+.PHONY: populate-db
+populate-db:
+	poetry run python tests/scenarios/populate_db.py
