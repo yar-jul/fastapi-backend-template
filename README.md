@@ -31,7 +31,7 @@ cd fastapi-backend-template
 make install
 ```
 
-To populate the database:
+To populate the database with test data:
 
 ```bash
 cd fastapi-backend-template/backend
