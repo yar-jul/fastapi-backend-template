@@ -30,21 +30,21 @@ book_1 = {
     "name": "book_1",
     "category_id": category_ids[0],
     "author_id": author_ids[0],
-    "tags": tags
+    "tags": tags,
 }
 
 book_2 = {
     "name": "book_2",
     "category_id": category_ids[1],
     "author_id": author_ids[0],
-    "tags": [tags[0]]
+    "tags": [tags[0]],
 }
 
 book_3 = {
     "name": "book_3",
     "category_id": category_ids[1],
     "author_id": author_ids[1],
-    "tags": [tags[1]]
+    "tags": [tags[1]],
 }
 
 requests.post(book_url, json=book_1)

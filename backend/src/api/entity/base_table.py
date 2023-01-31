@@ -1,11 +1,12 @@
 import sqlalchemy as sa
 from sqlalchemy import MetaData
 from sqlalchemy.dialects import postgresql as pg
-from sqlalchemy.ext.declarative import as_declarative
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 
-@as_declarative()
-class BaseTable:
+class BaseTable(Base):
     __abstract__ = True
 
     metadata: MetaData

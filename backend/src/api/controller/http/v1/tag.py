@@ -32,7 +32,7 @@ async def list_tags(session=Depends(db_session)):
     return (await session.execute(select)).all()
 
 
-@router.post("/", response_model=TagRead)
+@router.post("/", response_model=TagRead, name="tag:post_tag")
 async def post_tag(tag: TagCreate, session=Depends(db_session)):
     entity = TagTable(name=tag.name)
     session.add(entity)
