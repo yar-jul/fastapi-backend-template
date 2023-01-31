@@ -24,7 +24,7 @@ You can also activate the vernal environment. On Unix:
 source .venv/bin/activate
 ```
 
-To run app in docker-compose:
+To run app in docker-compose create .env file and:
 
 ```bash
 cd fastapi-backend-template
